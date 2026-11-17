@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:previ/screens/hospitais/hospitais_screen.dart';
 import 'package:previ/screens/agenda/agenda_screen.dart';
 import 'package:previ/screens/perfil/perfil_screen.dart';
 import 'package:previ/screens/prevencao/prevencao_screen.dart';
@@ -246,7 +245,6 @@ class InicioContent extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-
           const SizedBox(height: 15),
 
           // PRIMEIRA LINHA
@@ -407,6 +405,20 @@ class InicioContent extends StatelessWidget {
           ),
 
           const SizedBox(height: 20),
+
+          AtalhoCard(
+            titulo: 'Hospitais próximos',
+            descricao: 'Encontre unidades de saúde',
+            icone: Icons.local_hospital_outlined,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HospitaisScreen(),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );

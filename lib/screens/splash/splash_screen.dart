@@ -34,15 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.favorite,
-              size: 80,
-              color: Color(0xFF7E57C2),
-            ),
             const SizedBox(height: 15),
             const Text(
               'Previ+',
               style: TextStyle(
+                color: Colors.deepPurple,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
