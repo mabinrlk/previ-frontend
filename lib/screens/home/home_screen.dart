@@ -1,6 +1,12 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:previ/screens/agenda/agenda_screen.dart';
+import 'package:previ/screens/perfil/perfil_screen.dart';
+import 'package:previ/screens/prevencao/prevencao_screen.dart';
+import 'package:previ/screens/minha_saude/ciclo_screen.dart';
+import 'package:previ/widgets/atalho_card.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -11,32 +17,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _paginaSelecionada = 0;
 
-  // Paleta de cores Previ+
   static const Color deepLilac = Color(0xFF7E57C2);
-  static const Color periwinkle = Color(0xFF9575CD);
-  static const Color classicLavender = Color(0xFFB39DDB);
-  static const Color paleLilac = Color(0xFFD1C4E9);
-  static const Color lavenderMist = Color(0xFFF3E5F5);
 
-  // Páginas da navegação
   final List<Widget> _paginas = [
     const InicioContent(),
-    const PaginaProvisoria(
-      titulo: 'Minha saúde',
-      icone: Icons.favorite_outline,
-    ),
-    const PaginaProvisoria(
-      titulo: 'Prevenção',
-      icone: Icons.health_and_safety_outlined,
-    ),
-    const PaginaProvisoria(
-      titulo: 'Agendamentos',
-      icone: Icons.calendar_month_outlined,
-    ),
-    const PaginaProvisoria(
-      titulo: 'Perfil',
-      icone: Icons.person_outline,
-    ),
+    const CicloScreen(),
+    const PrevencaoScreen(),
+    const AgendaScreen(),
+    const PerfilScreen(),
   ];
 
   @override
@@ -48,9 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: _paginas[_paginaSelecionada],
       ),
 
-      // Navegação inferior
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _paginaSelecionada,
+
         onTap: (index) {
           setState(() {
             _paginaSelecionada = index;
@@ -71,10 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
             activeIcon: Icon(Icons.home),
             label: 'Início',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline),
-            activeIcon: Icon(Icons.favorite),
-            label: 'Minha saúde',
+        BottomNavigationBarItem(
+          icon: Icon(Icons.water_drop_outlined),
+          activeIcon: Icon(Icons.water_drop),
+          label: 'Ciclo',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.health_and_safety_outlined),
@@ -96,7 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// --------------------------------------------------
 // CONTEÚDO DA PÁGINA INICIAL
+// --------------------------------------------------
 
 class InicioContent extends StatelessWidget {
   const InicioContent({super.key});
@@ -114,7 +105,8 @@ class InicioContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          // Cabeçalho
+          // CABEÇALHO
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -159,7 +151,8 @@ class InicioContent extends StatelessWidget {
 
           const SizedBox(height: 28),
 
-          // Cartão principal
+          // CARTÃO PRINCIPAL
+
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(22),
@@ -211,7 +204,16 @@ class InicioContent extends StatelessWidget {
                 const SizedBox(height: 18),
 
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const PrevencaoScreen(),
+                      ),
+                    );
+                  },
+
                   style: OutlinedButton.styleFrom(
                     foregroundColor: deepLilac,
                     backgroundColor: Colors.white,
@@ -220,6 +222,7 @@ class InicioContent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(13),
                     ),
                   ),
+
                   child: const Text(
                     'Conheça os cuidados',
                     style: TextStyle(
@@ -233,7 +236,8 @@ class InicioContent extends StatelessWidget {
 
           const SizedBox(height: 30),
 
-          // Acessos rápidos
+          // ACESSOS RÁPIDOS
+
           const Text(
             'Acessos rápidos',
             style: TextStyle(
@@ -245,23 +249,45 @@ class InicioContent extends StatelessWidget {
 
           const SizedBox(height: 15),
 
+          // PRIMEIRA LINHA
+
           Row(
-            children: const [
+            children: [
               Expanded(
                 child: AtalhoCard(
                   titulo: 'Minha saúde',
                   descricao: 'Acompanhe seus dados',
                   icone: Icons.favorite_outline,
+
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const CicloScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
 
-              SizedBox(width: 13),
+              const SizedBox(width: 13),
 
               Expanded(
                 child: AtalhoCard(
                   titulo: 'Prevenção',
                   descricao: 'Cuide-se diariamente',
                   icone: Icons.health_and_safety_outlined,
+
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const PrevencaoScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -269,23 +295,45 @@ class InicioContent extends StatelessWidget {
 
           const SizedBox(height: 13),
 
+          // SEGUNDA LINHA
+
           Row(
-            children: const [
+            children: [
               Expanded(
                 child: AtalhoCard(
                   titulo: 'Agendamentos',
                   descricao: 'Consultas e exames',
                   icone: Icons.calendar_month_outlined,
+
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const AgendaScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
 
-              SizedBox(width: 13),
+              const SizedBox(width: 13),
 
               Expanded(
                 child: AtalhoCard(
                   titulo: 'Orientações',
                   descricao: 'Informações de saúde',
                   icone: Icons.menu_book_outlined,
+
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const PrevencaoScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -293,7 +341,8 @@ class InicioContent extends StatelessWidget {
 
           const SizedBox(height: 30),
 
-          // Área informativa
+          // ÁREA INFORMATIVA
+
           const Text(
             'Fique por dentro',
             style: TextStyle(
@@ -358,121 +407,6 @@ class InicioContent extends StatelessWidget {
           ),
 
           const SizedBox(height: 20),
-        ],
-      ),
-    );
-  }
-}
-
-// --------------------------------------------------
-// CARTÕES DE ACESSO RÁPIDO
-// --------------------------------------------------
-
-class AtalhoCard extends StatelessWidget {
-  final String titulo;
-  final String descricao;
-  final IconData icone;
-
-  const AtalhoCard({
-    super.key,
-    required this.titulo,
-    required this.descricao,
-    required this.icone,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFAF5FB),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: const Color(0xFFD1C4E9),
-        ),
-      ),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            icone,
-            color: const Color(0xFF9575CD),
-            size: 29,
-          ),
-
-          const SizedBox(height: 13),
-
-          Text(
-            titulo,
-            style: const TextStyle(
-              color: Color(0xFF7E57C2),
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 5),
-
-          Text(
-            descricao,
-            style: const TextStyle(
-              color: Color(0xFF55515A),
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// --------------------------------------------------
-// TELAS PROVISÓRIAS
-// --------------------------------------------------
-
-class PaginaProvisoria extends StatelessWidget {
-  final String titulo;
-  final IconData icone;
-
-  const PaginaProvisoria({
-    super.key,
-    required this.titulo,
-    required this.icone,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icone,
-            color: const Color(0xFF9575CD),
-            size: 65,
-          ),
-
-          const SizedBox(height: 15),
-
-          Text(
-            titulo,
-            style: const TextStyle(
-              color: Color(0xFF7E57C2),
-              fontSize: 23,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          const Text(
-            'Em breve, novidades por aqui!',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-          ),
         ],
       ),
     );
